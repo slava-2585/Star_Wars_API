@@ -3,7 +3,7 @@ import os
 from sqlalchemy.ext.asyncio import AsyncAttrs, create_async_engine, async_sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
-
+from sqlalchemy.orm import DeclarativeBase
 
 POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD", "12345")
 POSTGRES_USER = os.getenv("POSTGRES_USER", "postgres")
@@ -19,7 +19,7 @@ engine = create_async_engine(PG_DSN)
 Session = async_sessionmaker(bind=engine)
 
 
-class Base(declarative_base, AsyncAttrs):
+class Base(DeclarativeBase, AsyncAttrs):
     pass
 
 
@@ -32,15 +32,14 @@ class People(Base):
     films = Column(String)
     gender = Column(String)
     hair_color = Column(String)
-    height = Column(Integer)
+    height = Column(String)
     homeworld = Column(String)
-    mass = Column(Integer)
+    mass = Column(String)
     name = Column(String)
     skin_color = Column(String)
     species = Column(String)
     starships = Column(String)
     vehicles = Column(String)
-
 
 
 async def init_db():
