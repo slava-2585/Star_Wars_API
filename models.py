@@ -1,7 +1,6 @@
 import os
 
 from sqlalchemy.ext.asyncio import AsyncAttrs, create_async_engine, async_sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import DeclarativeBase
 
@@ -13,7 +12,7 @@ POSTGRES_PORT = os.getenv("POSTGRES_PORT", "5432")
 
 
 PG_DSN = f"postgresql+asyncpg://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
-#SQLITE_DSN = 'sqlite:///flask.db'
+#SQLITE_DSN = 'sqlite+asyncpg:///flask.db'
 
 engine = create_async_engine(PG_DSN)
 Session = async_sessionmaker(bind=engine)
